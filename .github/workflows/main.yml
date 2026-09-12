@@ -1,4 +1,4 @@
-name: Deploy Vite App to GitHub Pages
+name: Deploy Dillon Cloud to GitHub Pages
 
 on:
   push:
@@ -28,18 +28,20 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
       - name: Install dependencies
         run: npm install
 
-      - name: Build
+      - name: Build project
         run: npm run build
 
       - name: Check build output
         run: |
-          echo "Checking dist folder..."
+          echo "Checking .output folder..."
           ls -la
-          ls -la dist
+          ls -la .output
+          find .output -maxdepth 2 -type f | head -30
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -47,7 +49,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./.output/public
 
   deploy:
     environment:
