@@ -21,29 +21,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Get the latest code from the repository
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Install Node.js 22
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      # Install dependencies
       - name: Install dependencies
         run: npm install
 
-      # Build the Vite project
       - name: Build
         run: npm run build
 
-      # Configure GitHub Pages
+      - name: Check build output
+        run: |
+          echo "Checking dist folder..."
+          ls -la
+          ls -la dist
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      # Upload the dist folder
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
